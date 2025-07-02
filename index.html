@@ -7,53 +7,66 @@
   <style>
     body {
       margin: 0;
-      background: #f0f0f0;
-      font-family: Arial, sans-serif;
+      padding: 0;
+      background: white;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .container {
+      width: 90vw;
+      max-width: 600px;
+      height: 90vw;
+      max-height: 600px;
+      background: white;
+      border: 15px solid;
+      border-image: linear-gradient(90deg, #8EC5FC, #E0C3FC, #F9D423, #FF6A00) 1;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
+      position: relative;
+      box-sizing: border-box;
       text-align: center;
     }
-    h1 {
-      margin-bottom: 10px;
-    }
+
     #arcContainer {
       width: 80%;
-      height: 200px;
-      margin: 20px 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      background: #ddd;
-      border-radius: 0 0 200px 200px;
-      overflow: hidden;
+      aspect-ratio: 2/1;
+      margin-bottom: 20px;
       position: relative;
+      overflow: hidden;
     }
+
     .arcSegment {
+      position: absolute;
       width: 100%;
       height: 14.28%;
+      bottom: 0;
+      transform: rotateX(180deg);
       opacity: 0;
       transition: opacity 0.3s ease-in-out;
     }
+
+    .arcSegment:nth-child(1) { background: #ff595e; bottom: 0%; }
+    .arcSegment:nth-child(2) { background: #ffca3a; bottom: 14.28%; }
+    .arcSegment:nth-child(3) { background: #8ac926; bottom: 28.56%; }
+    .arcSegment:nth-child(4) { background: #1982c4; bottom: 42.84%; }
+    .arcSegment:nth-child(5) { background: #6a4c93; bottom: 57.12%; }
+    .arcSegment:nth-child(6) { background: #f72585; bottom: 71.4%; }
+    .arcSegment:nth-child(7) { background: #3a0ca3; bottom: 85.68%; }
+
     #message {
-      font-size: 1.5em;
+      font-size: 1.2em;
       font-weight: bold;
-      color: #333;
+      color: #000;
       display: none;
-      margin: 20px 0;
+      max-width: 90%;
     }
-    #shareButton {
-      display: none;
-      padding: 10px 20px;
-      background-color: #6a4c93;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      font-size: 1em;
-      cursor: pointer;
-    }
+
     .confetti {
       position: fixed;
       top: 0;
@@ -61,7 +74,9 @@
       transform: translateX(-50%);
       font-size: 2em;
       animation: fall 2s linear forwards;
+      z-index: 999;
     }
+
     @keyframes fall {
       0% { top: 0; opacity: 1; }
       100% { top: 100vh; opacity: 0; }
@@ -69,24 +84,23 @@
   </style>
 </head>
 <body>
-  <h1>Agita para llenar el Arcoíris</h1>
-  <div id="arcContainer">
-    <div class="arcSegment" style="background:#ff595e"></div>
-    <div class="arcSegment" style="background:#ffca3a"></div>
-    <div class="arcSegment" style="background:#8ac926"></div>
-    <div class="arcSegment" style="background:#1982c4"></div>
-    <div class="arcSegment" style="background:#6a4c93"></div>
-    <div class="arcSegment" style="background:#f72585"></div>
-    <div class="arcSegment" style="background:#3a0ca3"></div>
+  <div class="container">
+    <div id="arcContainer">
+      <div class="arcSegment"></div>
+      <div class="arcSegment"></div>
+      <div class="arcSegment"></div>
+      <div class="arcSegment"></div>
+      <div class="arcSegment"></div>
+      <div class="arcSegment"></div>
+      <div class="arcSegment"></div>
+    </div>
+    <div id="message">¡Frase motivadora aquí! 🌈✨</div>
   </div>
-  <div id="message"></div>
-  <button id="shareButton">Compartir</button>
 
   <script>
     let filled = 0;
     const segments = document.querySelectorAll('.arcSegment');
     const message = document.getElementById('message');
-    const shareButton = document.getElementById('shareButton');
     const phrases = [
       '¡Eres energía y alegría! 🌈✨',
       '¡Iluminas el mundo con tu luz! 💡🌞',
@@ -117,7 +131,6 @@
             const phrase = phrases[Math.floor(Math.random() * phrases.length)];
             message.textContent = phrase;
             message.style.display = 'block';
-            shareButton.style.display = 'inline-block';
             launchConfetti();
           }
         }
@@ -125,16 +138,6 @@
     } else {
       alert('Tu dispositivo no soporta detección de movimiento.');
     }
-
-    shareButton.addEventListener('click', () => {
-      navigator.share
-        ? navigator.share({
-            title: 'Arcoíris Fundación Summer',
-            text: message.textContent,
-            url: window.location.href
-          })
-        : alert('Función de compartir no soportada en este navegador.');
-    });
   </script>
 </body>
 </html>
