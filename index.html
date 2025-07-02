@@ -42,6 +42,29 @@
       font-weight: bold;
       color: #333;
       display: none;
+      margin: 20px 0;
+    }
+    #shareButton {
+      display: none;
+      padding: 10px 20px;
+      background-color: #6a4c93;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+    .confetti {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2em;
+      animation: fall 2s linear forwards;
+    }
+    @keyframes fall {
+      0% { top: 0; opacity: 1; }
+      100% { top: 100vh; opacity: 0; }
     }
   </style>
 </head>
@@ -56,12 +79,31 @@
     <div class="arcSegment" style="background:#f72585"></div>
     <div class="arcSegment" style="background:#3a0ca3"></div>
   </div>
-  <div id="message">¡Eres energía y alegría! 🌈✨</div>
+  <div id="message"></div>
+  <button id="shareButton">Compartir</button>
 
   <script>
     let filled = 0;
     const segments = document.querySelectorAll('.arcSegment');
     const message = document.getElementById('message');
+    const shareButton = document.getElementById('shareButton');
+    const phrases = [
+      '¡Eres energía y alegría! 🌈✨',
+      '¡Iluminas el mundo con tu luz! 💡🌞',
+      '¡Tú haces posible el cambio! ⚡🌟',
+      '¡Gracias por llenar de color el futuro! 🎨🌈'
+    ];
+
+    function launchConfetti() {
+      for (let i = 0; i < 20; i++) {
+        const conf = document.createElement('div');
+        conf.classList.add('confetti');
+        conf.style.left = Math.random() * 100 + 'vw';
+        conf.textContent = ['🎉', '✨', '🌟', '🌈'][Math.floor(Math.random() * 4)];
+        document.body.appendChild(conf);
+        setTimeout(() => conf.remove(), 2000);
+      }
+    }
 
     if (window.DeviceMotionEvent) {
       window.addEventListener('devicemotion', (event) => {
@@ -72,13 +114,27 @@
           filled++;
 
           if (filled === segments.length) {
+            const phrase = phrases[Math.floor(Math.random() * phrases.length)];
+            message.textContent = phrase;
             message.style.display = 'block';
+            shareButton.style.display = 'inline-block';
+            launchConfetti();
           }
         }
       });
     } else {
       alert('Tu dispositivo no soporta detección de movimiento.');
     }
+
+    shareButton.addEventListener('click', () => {
+      navigator.share
+        ? navigator.share({
+            title: 'Arcoíris Fundación Summer',
+            text: message.textContent,
+            url: window.location.href
+          })
+        : alert('Función de compartir no soportada en este navegador.');
+    });
   </script>
 </body>
 </html>
