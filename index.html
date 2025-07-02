@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arcoíris Fundación Summer</title>
+  <style>
+    body {
+      margin: 0;
+      background: #f0f0f0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 10px;
+    }
+    #arcContainer {
+      width: 80%;
+      height: 200px;
+      margin: 20px 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      background: #ddd;
+      border-radius: 0 0 200px 200px;
+      overflow: hidden;
+      position: relative;
+    }
+    .arcSegment {
+      width: 100%;
+      height: 14.28%;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+    #message {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #333;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Agita para llenar el Arcoíris</h1>
+  <div id="arcContainer">
+    <div class="arcSegment" style="background:#ff595e"></div>
+    <div class="arcSegment" style="background:#ffca3a"></div>
+    <div class="arcSegment" style="background:#8ac926"></div>
+    <div class="arcSegment" style="background:#1982c4"></div>
+    <div class="arcSegment" style="background:#6a4c93"></div>
+    <div class="arcSegment" style="background:#f72585"></div>
+    <div class="arcSegment" style="background:#3a0ca3"></div>
+  </div>
+  <div id="message">¡Eres energía y alegría! 🌈✨</div>
+
+  <script>
+    let filled = 0;
+    const segments = document.querySelectorAll('.arcSegment');
+    const message = document.getElementById('message');
+
+    if (window.DeviceMotionEvent) {
+      window.addEventListener('devicemotion', (event) => {
+        const shake = Math.abs(event.acceleration.x) + Math.abs(event.acceleration.y) + Math.abs(event.acceleration.z);
+
+        if (shake > 25 && filled < segments.length) {
+          segments[filled].style.opacity = 1;
+          filled++;
+
+          if (filled === segments.length) {
+            message.style.display = 'block';
+          }
+        }
+      });
+    } else {
+      alert('Tu dispositivo no soporta detección de movimiento.');
+    }
+  </script>
+</body>
+</html>
