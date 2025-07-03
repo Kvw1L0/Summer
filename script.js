@@ -1,5 +1,5 @@
 (() => {
-  const maxShakes = 30;
+  const maxShakes = 20;
   let shakeCount = 0, lastShakeTime = 0;
   const readings = [], arcs = [], arcLengths = [];
   let threshold = null;
