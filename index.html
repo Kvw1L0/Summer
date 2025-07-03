@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rainbow Shake App v2</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <svg id="rainbow" viewBox="0 0 200 100">
+      <path class="band" id="band0" data-color="#FF0000" d="M0,100 A100,100 0 0,1 200,100 L200,200 L0,200 Z"/>
+      <path class="band" id="band1" data-color="#FF7F00" d="M10,100 A90,90 0 0,1 190,100 L190,200 L10,200 Z"/>
+      <path class="band" id="band2" data-color="#FFFF00" d="M20,100 A80,80 0 0,1 180,100 L180,200 L20,200 Z"/>
+      <path class="band" id="band3" data-color="#00FF00" d="M30,100 A70,70 0 0,1 170,100 L170,200 L30,200 Z"/>
+      <path class="band" id="band4" data-color="#0000FF" d="M40,100 A60,60 0 0,1 160,100 L160,200 L40,200 Z"/>
+      <path class="band" id="band5" data-color="#4B0082" d="M50,100 A50,50 0 0,1 150,100 L150,200 L50,200 Z"/>
+      <path class="band" id="band6" data-color="#8B00FF" d="M60,100 A40,40 0 0,1 140,100 L140,200 L60,200 Z"/>
+    </svg>
+    <div id="message"></div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
