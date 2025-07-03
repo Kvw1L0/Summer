@@ -1,6 +1,0 @@
-* { margin:0; padding:0; box-sizing:border-box; }
-body { display:flex; justify-content:center; align-items:center; height:100vh; background:#111; color:#fff; font-family:sans-serif; overflow:hidden; }
-#app { text-align:center; }
-#rainbow { width:80vw; max-width:400px; }
-#message { margin-top:20px; font-size:1.2rem; text-shadow: 0 0 8px #0ff; opacity:0; transition:opacity 0.5s, transform 0.5s;}
-.show { opacity:1; transform: scale(1.1);}
